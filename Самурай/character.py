@@ -4,14 +4,11 @@ from а.character import Character
 
 
 class Samurai(Character):
-    def __init__(self, name='', health=100, damage=10, color=Fore.LIGHTRED_EX):
+    def __init__(self, name='', health=100, damage=10, color=Fore.LIGHTRED_EX, defence=0):
         Character.__init__(self, name, health, damage, color)
-        self.max_multiplier = 5
+        self.max_multiplier = 0.5
         self.attack_multiplier = 0
-        self.name = name
-        self.health = health
-        self.damage = damage
-        self.color = color
+        self.defence = defence
 
     def attack(self, target):
         additional_damage = int(self.damage * self.attack_multiplier)
@@ -33,6 +30,12 @@ class Samurai(Character):
             f'defence: {self.defence}\n' \
             f'{Style.RESET_ALL}'
 
+    def take_damage(self, damage):
+        self.health -= max(damage - self.defence, 0)
 
-class Character:
-    pass
+    def is_alive(self):
+        return self.health > 0
+
+
+
+
