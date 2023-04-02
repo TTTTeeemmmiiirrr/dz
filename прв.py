@@ -1,11 +1,11 @@
+data = {10: 2, 2: 5, "123": 4, 18: 0, (): 15, 8: 4}
 result = {}
 errors = {}
 
-
-def divider(a, b, i):
+for i, key in enumerate(data):
     try:
-        if a < b:
-            raise ValueError(f"Index {i}: a < b")
+        a = int(key)
+        b = int(data[key])
         if b == 0:
             raise ZeroDivisionError(f"Index {i}: division by zero")
         if b > 100:
@@ -13,16 +13,12 @@ def divider(a, b, i):
         result[i] = a / b
     except Exception as e:
         errors[i] = str(e)
-
-
-data = {10: 2, 2: 5, "123": 4, 18: 0, (): 15, 8: 4}
-for i, key in enumerate(data):
-    divider(key, data[key], i)
+        result[i] = 0.0
 
 print("Errors:")
 for k, v in errors.items():
     print(f"{k}: {v}")
 
 print("Results:")
-for k, v in result.items():
+for k, v in sorted(result.items(), key=lambda x: x[0]):
     print(f"{k}: {v}")
